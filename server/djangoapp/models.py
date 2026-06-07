@@ -30,10 +30,15 @@ class CarModel(models.Model):
         related_name='models'
     )
 
-    dealer_id = models.IntegerField()
+    dealer_id = models.IntegerField(default=1)
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=20, choices=CAR_TYPE)
-    year = models.IntegerField()
+    year = models.IntegerField(
+    validators=[
+        MinValueValidator(2015),
+        MaxValueValidator(2023)
+    ]
+)
 
     def __str__(self):
         return f"{self.car_make.name} {self.name}"
